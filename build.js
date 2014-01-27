@@ -60,7 +60,7 @@ var targetFolderRegex = /(?:\/\/\s*target[s]?:\s*)([a-z,]*)/gi;
 var variableRegex = /(?:\/\/\s*variable[s]?)([\S\n\r\D]*)(?:\/\/\s*end\s*variable[s]?)/gi;
 var functionRegex = /(?:\/\/\s*function[s]?)([\S\n\r\D]*)(?:\/\/\s*end\s*function[s]?)/gi;
 var otherRegex = /(?:\/\/\s*other[s]?)([\S\n\r\D]*)(?:\/\/\s*end\s*other[s]?)/gi;
-var returnRegex = /(?:\/\/\s*return[s]?)([\S\n\r\D]*)(?:\/\/\s*end\s*return[s]?)/gi;
+var returnRegex = /(?:\/\/\s*return[s]?[\n\r])([\S\n\r\D]*)(?:\/\/\s*end\s*return[s]?)/gi;
 
 var names = [];
 var fileNames = [];

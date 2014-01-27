@@ -50,6 +50,12 @@ var options = {
 };
 
 var constNames = {
+	// commands
+	COMMAND_REMOTE_ID:0,
+	COMMAND_PING:1,
+	COMMAND_TIMESTAMP:2,
+	COMMAND_ACTION:3,
+	COMMAND_VALUE:4,
 	// player and control data
 	TIMESTAMP: 0,
 	LOCALID: 0,
@@ -149,6 +155,11 @@ var constNames = {
 };
 
 var engineNames = {
+	COMMAND_EACH:"eachCommand",
+	COMMAND_PROCESS:"processCommand",
+	COMMAND_ON:"event.on",
+	COMMAND_PUSH:"pushCommand",
+	COMMAND_MAKE:"newCommand",
 	CONFIG_INPUT: "input",
 	CONFIG_ACTION: "action",
 	CONFIG_MATCH_KEY: "matchKey",
@@ -213,6 +224,11 @@ var engineNames = {
 };
 
 var singleNames = {
+	COMMAND_EACH:"Command.each",
+	COMMAND_PROCESS:"Command.process",
+	COMMAND_ON:"Command.on",
+	COMMAND_PUSH:"Command.push",
+	COMMAND_MAKE:"Command.make",
 	CONFIG_INPUT: "Config.input",
 	CONFIG_ACTION: "Config.action",
 	CONFIG_MATCH_KEY: "Config.matchKey",
