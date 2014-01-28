@@ -107,6 +107,7 @@ var constNames = {
 	VELOCITY_Y: 6,
 	TURNSPEED: 7,
 	SPRITE_ID: 8,
+	COLOR: 9,
 
 	// audio data
 	CHUNKID: 0,
@@ -186,6 +187,7 @@ var engineNames = {
 	DRAW_CLEAR: "clear",
 	DRAW_CHANGE:"changeState",
 	DRAW_POLY: "poly",
+	DRAW_MOVE: "reposition",
 	DRAW_SETUP: "setupDraw",
 	HELP_ITEM_REMOVE: "itemRemove",
 	HELP_INDEX_REMOVE: "indexRemove",
@@ -256,6 +258,7 @@ var singleNames = {
 	DRAW_CLEAR: "Draw.clear",
 	DRAW_CHANGE: "Draw.change",
 	DRAW_POLY: "Draw.poly",
+	DRAW_MOVE: "Draw.move",
 	DRAW_SETUP: "Draw.setup",
 	HELP_ITEM_REMOVE: "Help.itemRemove",
 	HELP_INDEX_REMOVE: "Help.indexRemove",
