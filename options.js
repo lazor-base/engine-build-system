@@ -106,7 +106,7 @@ var constNames = {
 	VELOCITY_X: 5,
 	VELOCITY_Y: 6,
 	TURNSPEED: 7,
-	SIDES: 8,
+	SPRITE_ID: 8,
 
 	// audio data
 	CHUNKID: 0,
@@ -181,7 +181,8 @@ var engineNames = {
 	GUI_SET: "setGUI",
 	GUI_ON: "event.on",
 	GUI_EMIT: "event.on",
-	DRAW_CANVAS: "canvas",
+	DRAW_NEW_GRAPHIC: "newGraphic",
+	DRAW_GET_GRAPHIC: "getGraphic",
 	DRAW_CLEAR: "clear",
 	DRAW_CHANGE:"changeState",
 	DRAW_POLY: "poly",
@@ -250,7 +251,8 @@ var singleNames = {
 	GUI_SET: "GUI.set",
 	GUI_ON: "GUI.on",
 	GUI_EMIT: "GUI.emit",
-	DRAW_CANVAS: "Draw.canvas",
+	DRAW_NEW_GRAPHIC: "Draw.newGraphic",
+	DRAW_GET_GRAPHIC: "Draw.getGraphic",
 	DRAW_CLEAR: "Draw.clear",
 	DRAW_CHANGE: "Draw.change",
 	DRAW_POLY: "Draw.poly",
