@@ -94,7 +94,11 @@ var constNames = {
 	COMMAND_TIMESTAMP:2,
 	COMMAND_ACTION:3,
 	COMMAND_VALUE:4,
-	// player and control data
+
+	///////////////
+	// Controls //
+	///////////////
+
 	TIMESTAMP: 0,
 	LOCALID: 0,
 	REMOTEID: 1,
@@ -104,13 +108,13 @@ var constNames = {
 	PING: 5,
 	ACTIVE: 1,
 	INACTIVE: 0,
-	LEFT_MOUSE: 1,
-	MIDDLE_MOUSE: 2,
-	RIGHT_MOUSE: 3,
-	MOUSE_X: 4,
-	MOUSE_Y: 5,
-	WHEEL_X: 6,
-	WHEEL_Y: 7,
+	MOUSE_LEFT_CLICK:1,
+	MOUSE_MIDDLE_CLICK:2,
+	MOUSE_RIGHT_CLICK:3,
+	MOUSE_MOVE_X:4,
+	MOUSE_MOVE_Y:5,
+	MOUSE_WHEEL_X:6,
+	MOUSE_WHEEL_Y:7,
 
 	//controller data
 	CROSS: 0,
@@ -174,9 +178,10 @@ var constNames = {
 	CHANGE_TO_CIRCLE:7,
 	CHANGE_TO_TRIANGLE:8,
 	CHANGE_TO_BEAM:9,
-	MOVE_MOUSE_X:0,
-	MOVE_MOUSE_Y:1,
-	MOUSE_CLICK:2,
+	MOUSE_X:0,
+	MOUSE_Y:1,
+	MOUSE_LEFT:2,
+	SCROLL_Y:3,
 
 	// polygon / light.js data
 	R: 7,
