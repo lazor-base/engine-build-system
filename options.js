@@ -50,7 +50,45 @@ var options = {
 };
 
 var constNames = {
-	// commands
+	/////////////
+	// blocks //
+	/////////////
+
+	BLOCK_ID:0,
+	BLOCK_WIDTH:1,
+	BLOCK_HEIGHT:2,
+	BLOCK_DEPTH:3,
+	BLOCK_TEXTURE:4,
+	BLOCK_SIZE:32,
+
+	/////////////
+	// Chunks //
+	/////////////
+
+	CHUNK_X:0,
+	CHUNK_Z:1,
+	CHUNK_LAST_UPDATED:2,
+	CHUNK_TIME_INHABITED:3,
+
+	///////////
+	// List //
+	///////////
+
+	UINT4:2,
+	UINT8:3,
+	UINT12:5,
+	UINT16:7,
+	UINT32:11,
+	INT8:6,
+	INT16:14,
+	INT32:22,
+	FLOAT32:33,
+	FLOAT64:13,
+
+	///////////////
+	// commands //
+	///////////////
+
 	COMMAND_REMOTE_ID:0,
 	COMMAND_PING:1,
 	COMMAND_TIMESTAMP:2,
@@ -108,6 +146,7 @@ var constNames = {
 	TURNSPEED: 7,
 	SPRITE_ID: 8,
 	COLOR: 9,
+	ALPHA: 10,
 
 	// audio data
 	CHUNKID: 0,
@@ -135,6 +174,9 @@ var constNames = {
 	CHANGE_TO_CIRCLE:7,
 	CHANGE_TO_TRIANGLE:8,
 	CHANGE_TO_BEAM:9,
+	MOVE_MOUSE_X:0,
+	MOVE_MOUSE_Y:1,
+	MOUSE_CLICK:2,
 
 	// polygon / light.js data
 	R: 7,
@@ -156,6 +198,9 @@ var constNames = {
 };
 
 var engineNames = {
+	EMIT_EVENT:"event.emit",
+	BLOCK_MAKE:"makeBlock",
+	BLOCK_GET:"getBlock",
 	COMMAND_EACH:"eachCommand",
 	COMMAND_PROCESS:"processCommand",
 	COMMAND_ON:"event.on",
@@ -171,7 +216,7 @@ var engineNames = {
 	CONTROL_PREVENT_DEFAULT: "preventDefault",
 	CONTROL_GAMEPADS: "gamepads",
 	CONTROL_ON: "event.on",
-	CONTROL_EMIT: "event.on",
+	CONTROL_EMIT: "event.emit",
 	CONTROL_LISTEN: "listen",
 	CONTROL_INIT: "initControl",
 	GUI_TEMPLATE: "template",
@@ -181,7 +226,10 @@ var engineNames = {
 	GUI_MAKE: "makeGUI",
 	GUI_SET: "setGUI",
 	GUI_ON: "event.on",
-	GUI_EMIT: "event.on",
+	GUI_EMIT: "event.emit",
+	DRAW_REGISTER_TEXTURE: "registerTexture",
+	DRAW_GET_TEXTURE:"getTexture",
+	DRAW_MAKE_SPRITE:"makeSprite",
 	DRAW_NEW_GRAPHIC: "newGraphic",
 	DRAW_GET_GRAPHIC: "getGraphic",
 	DRAW_CLEAR: "clear",
@@ -208,7 +256,9 @@ var engineNames = {
 	LOOP_GO: "go",
 	LOOP_EVERY: "every",
 	LOOP_ON: "event.on",
-	LOOP_EMIT: "event.emit",
+	MAP_MAKE:"makeChunk",
+	MAP_DRAW:"drawMap",
+	MAP_MOVE:"moveMap",
 	PHYSICS_TEST: "test",
 	PHYSICS_GET_VERTICES: "getVertices",
 	PLAYER_LENGTH: "length",
@@ -227,6 +277,9 @@ var engineNames = {
 };
 
 var singleNames = {
+	EMIT_EVENT:"event.emit",
+	BLOCK_MAKE:"Block.make",
+	BLOCK_GET:"Block.get",
 	COMMAND_EACH:"Command.each",
 	COMMAND_PROCESS:"Command.process",
 	COMMAND_ON:"Command.on",
@@ -253,6 +306,9 @@ var singleNames = {
 	GUI_SET: "GUI.set",
 	GUI_ON: "GUI.on",
 	GUI_EMIT: "GUI.emit",
+	DRAW_REGISTER_TEXTURE:"Draw.registerTexture",
+	DRAW_MAKE_SPRITE:"Draw.makeSprite",
+	DRAW_GET_TEXTURE:"Draw.getTexture",
 	DRAW_NEW_GRAPHIC: "Draw.newGraphic",
 	DRAW_GET_GRAPHIC: "Draw.getGraphic",
 	DRAW_CLEAR: "Draw.clear",
@@ -279,7 +335,9 @@ var singleNames = {
 	LOOP_GO: "Loop.go",
 	LOOP_EVERY: "Loop.every",
 	LOOP_ON: "Loop.on",
-	LOOP_EMIT: "Loop.emit",
+	MAP_MAKE:"Map.make",
+	MAP_DRAW:"Map.draw",
+	MAP_MOVE:"Map.move",
 	PHYSICS_TEST: "Physics.test",
 	PHYSICS_GET_VERTICES: "Physics.getVertices",
 	PLAYER_LENGTH: "Player.length",
