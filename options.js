@@ -69,6 +69,16 @@ var constNames = {
 	CHUNK_Z:1,
 	CHUNK_LAST_UPDATED:2,
 	CHUNK_TIME_INHABITED:3,
+	OPERATION:0,
+	X_COORDINATE:1,
+	Z_COORDINATE:2,
+	BLOCK_ARRAY:3,
+	DATA_ARRAY:4,
+	HEIGHT_ARRAY:5,
+	BUILD_CHUNK:0,
+	CHUNK_COMPLETE:1,
+	CHUNK_DIMENTION:16,
+	CHUNK_HEIGHT:16,
 
 	///////////
 	// List //
@@ -261,6 +271,7 @@ var engineNames = {
 	LOOP_GO: "go",
 	LOOP_EVERY: "every",
 	LOOP_ON: "event.on",
+	LOOP_QUEUE:"queue",
 	MAP_MAKE:"makeChunk",
 	MAP_DRAW:"drawMap",
 	MAP_MOVE:"moveMap",
@@ -340,6 +351,7 @@ var singleNames = {
 	LOOP_GO: "Loop.go",
 	LOOP_EVERY: "Loop.every",
 	LOOP_ON: "Loop.on",
+	LOOP_QUEUE:"Loop.queue",
 	MAP_MAKE:"Map.make",
 	MAP_DRAW:"Map.draw",
 	MAP_MOVE:"Map.move",
