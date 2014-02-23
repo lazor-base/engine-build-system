@@ -89,42 +89,47 @@ for (var i = 0; i < files.length; i++) {
 					string = string.replace(new RegExp(attr, "g"), singleOptions[attr]);
 				}
 			}
-			fs.writeFileSync(root_dir + "build/temp/client/" + file, string);
-			console.log("Wrote temporary file to " + root_dir + "build/temp/client/" + file);
-			with(UglifyJS) {
-				options.parse.filename = root_dir + "build/temp/client/" + file;
-				var parse_options = defaults({}, options.parse);
-				var compress_options = defaults({}, options.compress);
-				var output_options = defaults({}, options.output);
+			if (file.indexOf(".json") === -1) {
+				fs.writeFileSync(root_dir + "build/temp/client/" + file, string);
+				console.log("Wrote temporary file to " + root_dir + "build/temp/client/" + file);
+				with(UglifyJS) {
+					options.parse.filename = root_dir + "build/temp/client/" + file;
+					var parse_options = defaults({}, options.parse);
+					var compress_options = defaults({}, options.compress);
+					var output_options = defaults({}, options.output);
 
-				// parse_options = defaults(parse_options, default_options.parse, true);
-				// compress_options = defaults(compress_options, default_options.compress, true);
-				// output_options = defaults(output_options, default_options.output, true);
+					// parse_options = defaults(parse_options, default_options.parse, true);
+					// compress_options = defaults(compress_options, default_options.compress, true);
+					// output_options = defaults(output_options, default_options.output, true);
 
-				// 1. Parse
-				var fullCode = fs.readFileSync(root_dir + "build/temp/client/" + file, "utf8");
-				var toplevel_ast = parse(fullCode, parse_options);
-				toplevel_ast.figure_out_scope();
+					// 1. Parse
+					var fullCode = fs.readFileSync(root_dir + "build/temp/client/" + file, "utf8");
+					var toplevel_ast = parse(fullCode, parse_options);
+					toplevel_ast.figure_out_scope();
 
-				// 2. Compress
-				var compressor = new Compressor(compress_options);
-				var compressed_ast = toplevel_ast.transform(compressor);
+					// 2. Compress
+					var compressor = new Compressor(compress_options);
+					var compressed_ast = toplevel_ast.transform(compressor);
 
-				// 3. Mangle
-				compressed_ast.figure_out_scope();
-				compressed_ast.compute_char_frequency();
-				// compressed_ast.mangle_names();
+					// 3. Mangle
+					compressed_ast.figure_out_scope();
+					compressed_ast.compute_char_frequency();
+					// compressed_ast.mangle_names();
 
-				// 4. Generate output
-				var uglifiedCode = compressed_ast.print_to_string(output_options);
-				var oldSize = getUTF8Size(fullCode);
-				var newSize = getUTF8Size(uglifiedCode);
-				var saved = ((1 - newSize / oldSize) * 100).toFixed(2);
-				console.log("Saved " + saved + " % of old size: " + oldSize + "B with new size: " + newSize + "B for " + file);
-				// var minifiedCode = Minify(uglifiedCode);
+					// 4. Generate output
+					var uglifiedCode = compressed_ast.print_to_string(output_options);
+					var oldSize = getUTF8Size(fullCode);
+					var newSize = getUTF8Size(uglifiedCode);
+					var saved = ((1 - newSize / oldSize) * 100).toFixed(2);
+					console.log("Saved " + saved + " % of old size: " + oldSize + "B with new size: " + newSize + "B for " + file);
+					// var minifiedCode = Minify(uglifiedCode);
 
-				fs.writeFileSync(root_dir + "build/client/" + file, uglifiedCode);
-				console.log("Wrote final build to " + root_dir + "build/client/" + file);
+					fs.writeFileSync(root_dir + "build/client/" + file, uglifiedCode);
+					console.log("Wrote final build to " + root_dir + "build/client/" + file);
+				}
+			} else {
+				fs.writeFileSync(root_dir + "build/client/" + file, string);
+				console.log("Wrote temporary file to " + root_dir + "build/client/" + file);
 			}
 		} else if (string.match(nameRegex) !== null) {
 			// only gather files that are prepped for the engine.

@@ -1,3 +1,8 @@
+if (typeof process !== undefined) {
+	process.on("uncaughtException", function(err) {
+		console.error(err.message, err.stack);
+	});
+}
 (function(navigator, window, document) {
 	var arrayProto = Array.prototype;
 	/**
@@ -7,6 +12,7 @@
 	 *
 	 * @param  {Function} fn Uninitialized function to convert into a module.
 	 */
+
 	function Module(fn) {
 		return fn({
 			on: function(name, callback) {
