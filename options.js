@@ -54,56 +54,56 @@ var constNames = {
 	// blocks //
 	/////////////
 
-	BLOCK_ID:0,
-	BLOCK_WIDTH:1,
-	BLOCK_HEIGHT:2,
-	BLOCK_DEPTH:3,
-	BLOCK_TEXTURE:4,
-	BLOCK_SIZE:32,
+	BLOCK_ENTRIES:4,
+	BLOCK_ID: 0,
+	BLOCK_WIDTH: 1,
+	BLOCK_HEIGHT: 2,
+	BLOCK_DEPTH: 3,
+	BLOCK_SIZE: 32,
 
 	/////////////
 	// Chunks //
 	/////////////
 
-	CHUNK_X:0,
-	CHUNK_Z:1,
-	CHUNK_LAST_UPDATED:2,
-	CHUNK_TIME_INHABITED:3,
-	OPERATION:0,
-	X_COORDINATE:1,
-	Z_COORDINATE:2,
-	BLOCK_ARRAY:3,
-	DATA_ARRAY:4,
-	HEIGHT_ARRAY:5,
-	BUILD_CHUNK:0,
-	CHUNK_COMPLETE:1,
-	CHUNK_DIMENTION:16,
-	CHUNK_HEIGHT:16,
+	CHUNK_X: 0,
+	CHUNK_Z: 1,
+	CHUNK_LAST_UPDATED: 2,
+	CHUNK_TIME_INHABITED: 3,
+	OPERATION: 0,
+	X_COORDINATE: 1,
+	Z_COORDINATE: 2,
+	BLOCK_ARRAY: 3,
+	DATA_ARRAY: 4,
+	HEIGHT_ARRAY: 5,
+	BUILD_CHUNK: 0,
+	CHUNK_COMPLETE: 1,
+	CHUNK_DIMENTION: 16,
+	CHUNK_HEIGHT: 16,
 
 	///////////
 	// List //
 	///////////
 
-	UINT4:2,
-	UINT8:3,
-	UINT12:5,
-	UINT16:7,
-	UINT32:11,
-	INT8:6,
-	INT16:14,
-	INT32:22,
-	FLOAT32:33,
-	FLOAT64:13,
+	UINT4: 2,
+	UINT8: 3,
+	UINT12: 5,
+	UINT16: 7,
+	UINT32: 11,
+	INT8: 6,
+	INT16: 14,
+	INT32: 22,
+	FLOAT32: 33,
+	FLOAT64: 13,
 
 	///////////////
 	// commands //
 	///////////////
 
-	COMMAND_REMOTE_ID:0,
-	COMMAND_PING:1,
-	COMMAND_TIMESTAMP:2,
-	COMMAND_ACTION:3,
-	COMMAND_VALUE:4,
+	COMMAND_REMOTE_ID: 0,
+	COMMAND_PING: 1,
+	COMMAND_TIMESTAMP: 2,
+	COMMAND_ACTION: 3,
+	COMMAND_VALUE: 4,
 
 	///////////////
 	// Controls //
@@ -118,13 +118,42 @@ var constNames = {
 	PING: 5,
 	ACTIVE: 1,
 	INACTIVE: 0,
-	MOUSE_LEFT_CLICK:1,
-	MOUSE_MIDDLE_CLICK:2,
-	MOUSE_RIGHT_CLICK:3,
-	MOUSE_MOVE_X:4,
-	MOUSE_MOVE_Y:5,
-	MOUSE_WHEEL_X:6,
-	MOUSE_WHEEL_Y:7,
+	MOUSE_LEFT_CLICK: 1,
+	MOUSE_MIDDLE_CLICK: 2,
+	MOUSE_RIGHT_CLICK: 3,
+	MOUSE_MOVE_X: 4,
+	MOUSE_MOVE_Y: 5,
+	MOUSE_WHEEL_X: 6,
+	MOUSE_WHEEL_Y: 7,
+
+	///////////////////
+	// CONSTRUCTION //
+	///////////////////
+
+	IDLE_MODE: 0,
+	PLACEMENT_MODE: 1,
+
+	//////////////////////////
+	// STRUCTURE DEFINITION //
+	//////////////////////////
+
+	STRUCTURE_DEFINITION_ENTRIES:6,
+	STRUCTURE_ID: 0,
+	STRUCTURE_WIDTH: 1,
+	STRUCTURE_HEIGHT: 2,
+	STRUCTURE_DEPTH: 3,
+	STRUCTURE_COLOR: 4,
+	STRUCTURE_HEALTH:5,
+
+	///////////////
+	// STRUCTURE //
+	///////////////
+
+	STRUCTURE_ENTRIES:9,
+	STRUCTURE_X: 6,
+	STRUCTURE_Y:7,
+	STRUCTURE_Z:8,
+
 
 	//controller data
 	CROSS: 0,
@@ -184,14 +213,14 @@ var constNames = {
 	MOVEDOWN: 3,
 	LIGHTING_X: 4,
 	LIGHTING_Y: 5,
-	CHANGE_TO_PROJECTION:6,
-	CHANGE_TO_CIRCLE:7,
-	CHANGE_TO_TRIANGLE:8,
-	CHANGE_TO_BEAM:9,
-	MOUSE_X:0,
-	MOUSE_Y:1,
-	MOUSE_LEFT:2,
-	SCROLL_Y:3,
+	CHANGE_TO_PROJECTION: 6,
+	CHANGE_TO_CIRCLE: 7,
+	CHANGE_TO_TRIANGLE: 8,
+	CHANGE_TO_BEAM: 9,
+	MOUSE_X: 0,
+	MOUSE_Y: 1,
+	MOUSE_LEFT: 2,
+	SCROLL_Y: 3,
 
 	// polygon / light.js data
 	R: 7,
@@ -202,25 +231,25 @@ var constNames = {
 	RANGE: 11,
 	FALLOFF: 12,
 	// viewport
-	VIEWPORT_TYPE:7,
-	PROJECTION:0,
-	CIRCLE:1,
-	TRIANGLE:2,
-	BEAM:3,
+	VIEWPORT_TYPE: 7,
+	PROJECTION: 0,
+	CIRCLE: 1,
+	TRIANGLE: 2,
+	BEAM: 3,
 	// other
 	TRUE: 1,
 	FALSE: 0
 };
 
 var engineNames = {
-	EMIT_EVENT:"event.emit",
-	BLOCK_MAKE:"makeBlock",
-	BLOCK_GET:"getBlock",
-	COMMAND_EACH:"eachCommand",
-	COMMAND_PROCESS:"processCommand",
-	COMMAND_ON:"event.on",
-	COMMAND_PUSH:"pushCommand",
-	COMMAND_MAKE:"newCommand",
+	EMIT_EVENT: "event.emit",
+	BLOCK_MAKE: "makeBlock",
+	BLOCK_GET: "getBlock",
+	COMMAND_EACH: "eachCommand",
+	COMMAND_PROCESS: "processCommand",
+	COMMAND_ON: "event.on",
+	COMMAND_PUSH: "pushCommand",
+	COMMAND_MAKE: "newCommand",
 	CONFIG_INPUT: "input",
 	CONFIG_ACTION: "action",
 	CONFIG_MATCH_KEY: "matchKey",
@@ -243,12 +272,12 @@ var engineNames = {
 	GUI_ON: "event.on",
 	GUI_EMIT: "event.emit",
 	DRAW_REGISTER_TEXTURE: "registerTexture",
-	DRAW_GET_TEXTURE:"getTexture",
-	DRAW_MAKE_SPRITE:"makeSprite",
+	DRAW_GET_TEXTURE: "getTexture",
+	DRAW_MAKE_SPRITE: "makeSprite",
 	DRAW_NEW_GRAPHIC: "newGraphic",
 	DRAW_GET_GRAPHIC: "getGraphic",
 	DRAW_CLEAR: "clear",
-	DRAW_CHANGE:"changeState",
+	DRAW_CHANGE: "changeState",
 	DRAW_POLY: "poly",
 	DRAW_MOVE: "reposition",
 	DRAW_SETUP: "setupDraw",
@@ -263,7 +292,7 @@ var engineNames = {
 	LIGHT_ADD_LIGHT: "addLight",
 	LIGHT_ADD_VIEW: "addViewPort",
 	LIGHT_ADD_WALL: "addWall",
-	LIST_CLEAN:"cleanList",
+	LIST_CLEAN: "cleanList",
 	LIST_SIZE: "size",
 	LIST_GET: "getList",
 	LIST_PUT: "putList",
@@ -271,10 +300,10 @@ var engineNames = {
 	LOOP_GO: "go",
 	LOOP_EVERY: "every",
 	LOOP_ON: "event.on",
-	LOOP_QUEUE:"queue",
-	MAP_MAKE:"makeChunk",
-	MAP_DRAW:"drawMap",
-	MAP_MOVE:"moveMap",
+	LOOP_QUEUE: "queue",
+	MAP_MAKE: "makeChunk",
+	MAP_DRAW: "drawMap",
+	MAP_MOVE: "moveMap",
 	PHYSICS_TEST: "test",
 	PHYSICS_GET_VERTICES: "getVertices",
 	PLAYER_LENGTH: "length",
@@ -293,14 +322,14 @@ var engineNames = {
 };
 
 var singleNames = {
-	EMIT_EVENT:"event.emit",
-	BLOCK_MAKE:"Block.make",
-	BLOCK_GET:"Block.get",
-	COMMAND_EACH:"Command.each",
-	COMMAND_PROCESS:"Command.process",
-	COMMAND_ON:"Command.on",
-	COMMAND_PUSH:"Command.push",
-	COMMAND_MAKE:"Command.make",
+	EMIT_EVENT: "event.emit",
+	BLOCK_MAKE: "Block.make",
+	BLOCK_GET: "Block.get",
+	COMMAND_EACH: "Command.each",
+	COMMAND_PROCESS: "Command.process",
+	COMMAND_ON: "Command.on",
+	COMMAND_PUSH: "Command.push",
+	COMMAND_MAKE: "Command.make",
 	CONFIG_INPUT: "Config.input",
 	CONFIG_ACTION: "Config.action",
 	CONFIG_MATCH_KEY: "Config.matchKey",
@@ -322,9 +351,9 @@ var singleNames = {
 	GUI_SET: "GUI.set",
 	GUI_ON: "GUI.on",
 	GUI_EMIT: "GUI.emit",
-	DRAW_REGISTER_TEXTURE:"Draw.registerTexture",
-	DRAW_MAKE_SPRITE:"Draw.makeSprite",
-	DRAW_GET_TEXTURE:"Draw.getTexture",
+	DRAW_REGISTER_TEXTURE: "Draw.registerTexture",
+	DRAW_MAKE_SPRITE: "Draw.makeSprite",
+	DRAW_GET_TEXTURE: "Draw.getTexture",
 	DRAW_NEW_GRAPHIC: "Draw.newGraphic",
 	DRAW_GET_GRAPHIC: "Draw.getGraphic",
 	DRAW_CLEAR: "Draw.clear",
@@ -343,7 +372,7 @@ var singleNames = {
 	LIGHT_ADD_LIGHT: "Light.addLight",
 	LIGHT_ADD_VIEW: "Light.addViewPort",
 	LIGHT_ADD_WALL: "Light.addWall",
-	LIST_CLEAN:"List.clean",
+	LIST_CLEAN: "List.clean",
 	LIST_SIZE: "List.size",
 	LIST_GET: "List.get",
 	LIST_PUT: "List.put",
@@ -351,10 +380,10 @@ var singleNames = {
 	LOOP_GO: "Loop.go",
 	LOOP_EVERY: "Loop.every",
 	LOOP_ON: "Loop.on",
-	LOOP_QUEUE:"Loop.queue",
-	MAP_MAKE:"Map.make",
-	MAP_DRAW:"Map.draw",
-	MAP_MOVE:"Map.move",
+	LOOP_QUEUE: "Loop.queue",
+	MAP_MAKE: "Map.make",
+	MAP_DRAW: "Map.draw",
+	MAP_MOVE: "Map.move",
 	PHYSICS_TEST: "Physics.test",
 	PHYSICS_GET_VERTICES: "Physics.getVertices",
 	PLAYER_LENGTH: "Player.length",
