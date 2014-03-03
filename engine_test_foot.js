@@ -1,4 +1,4 @@
-		GUI_ON("ready", function() {
+		GUI_ON("RenderReady", function() {
 			Game.setup();
 			Game.start();
 		});

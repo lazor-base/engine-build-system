@@ -1,4 +1,4 @@
-if (typeof process !== undefined) {
+if (this.process && this.process.on) {
 	process.on("uncaughtException", function(err) {
 		console.error(err.message, err.stack);
 	});
