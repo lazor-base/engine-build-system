@@ -59,7 +59,7 @@ var constNames = {
 	BLOCK_WIDTH: 1,
 	BLOCK_HEIGHT: 2,
 	BLOCK_DEPTH: 3,
-	BLOCK_SIZE: 32,
+	BLOCK_SIZE: 16,
 
 	/////////////
 	// Chunks //
@@ -232,7 +232,8 @@ var constNames = {
 	MOUSE_X: 0,
 	MOUSE_Y: 1,
 	MOUSE_LEFT: 2,
-	SCROLL_Y: 3,
+	MOUSE_RIGHT:3,
+	SCROLL_Y: 4,
 
 	// polygon / light.js data
 	R: 7,
