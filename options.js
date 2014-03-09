@@ -25,7 +25,7 @@ var options = {
 		negate_iife: true,
 		screw_ie8: true,
 
-		warnings: false,
+		warnings: true,
 		global_defs: {
 
 		}
@@ -59,7 +59,7 @@ var constNames = {
 	BLOCK_WIDTH: 1,
 	BLOCK_HEIGHT: 2,
 	BLOCK_DEPTH: 3,
-	BLOCK_SIZE: 16,
+	BLOCK_SIZE: 32,
 
 	/////////////
 	// Chunks //

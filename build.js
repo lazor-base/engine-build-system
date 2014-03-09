@@ -1,6 +1,6 @@
 process.on("uncaughtException", function(err) {
 	"use strict";
-	console.error(err.message, err.stack);
+	console.error(err.toString());
 });
 var path = require("path");
 var rootDir = path.resolve(process.argv[1], "../../") + "/";
@@ -21,12 +21,6 @@ function mergeObject(object, container) {
 	return container;
 }
 
-// function mergeOptions(obj1, obj2) {
-// 	"use strict";
-// 	var obj3 = mergeObject(obj1, {});
-// 	obj3 = mergeObject(obj2, obj3);
-// 	return obj3;
-// }
 
 var options = config.options;
 var globalDefs = mergeObject(config.options.compress.global_defs, config.constNames);
@@ -96,15 +90,6 @@ function uglifyCode(folder, fileName) {
 	fs.writeFileSync(rootDir + "build/" + folder + "/" + fileName + ".js", uglifiedCode);
 	console.log("Wrote final build to " + rootDir + "build/" + folder + "/" + fileName + ".js");
 }
-
-// function unique(array) {
-// 	array.reverse();
-// 	var result = array.filter(function(e, i, array) {
-// 		return array.indexOf(e, i + 1) === -1;
-// 	}).reverse();
-// 	array.reverse();
-// 	return result;
-// }
 
 var nameRegex = /(?:\/\/\s*name[s]?:\s*)([a-z]*)/gi;
 var fileNameRegex = /(?:\/\/\s*filename[s]?:\s*)([a-z,]*)/gi;
