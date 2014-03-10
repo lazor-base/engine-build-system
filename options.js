@@ -54,7 +54,7 @@ var constNames = {
 	// blocks //
 	/////////////
 
-	BLOCK_ENTRIES:4,
+	BLOCK_ENTRIES: 4,
 	BLOCK_ID: 0,
 	BLOCK_WIDTH: 1,
 	BLOCK_HEIGHT: 2,
@@ -77,7 +77,7 @@ var constNames = {
 	HEIGHT_ARRAY: 5,
 	BUILD_CHUNK: 0,
 	CHUNK_COMPLETE: 1,
-	DEBUG:2,
+	DEBUG: 2,
 	CHUNK_DIMENTION: 16,
 	CHUNK_HEIGHT: 16,
 
@@ -138,34 +138,100 @@ var constNames = {
 	// STRUCTURE DEFINITION //
 	//////////////////////////
 
-	STRUCTURE_DEFINITION_ENTRIES:6,
+	STRUCTURE_DEFINITION_ENTRIES: 6,
 	STRUCTURE_ID: 0,
 	STRUCTURE_WIDTH: 1,
 	STRUCTURE_HEIGHT: 2,
 	STRUCTURE_DEPTH: 3,
 	STRUCTURE_COLOR: 4,
-	STRUCTURE_HEALTH:5,
+	STRUCTURE_HEALTH: 5,
 
 	///////////////
 	// STRUCTURE //
 	///////////////
 
-	STRUCTURE_ENTRIES:9,
+	// STRUCTURE_ENTRIES:9,
 	STRUCTURE_X: 6,
-	STRUCTURE_Y:7,
-	STRUCTURE_Z:8,
+	STRUCTURE_Y: 7,
+	STRUCTURE_Z: 8,
 
 	//////////////
 	// PHYSICS //
 	//////////////
 
-	PHYSICS_ENTRIES:4,
-	PHYSICS_X:0,
-	PHYSICS_Y:1,
-	PHYSICS_WIDTH:2,
-	PHYSICS_HEIGHT:3,
-	PHYSICS_ANGLE:3,
+	PHYSICS_ENTRIES: 4,
+	PHYSICS_X: 0,
+	PHYSICS_Y: 1,
+	PHYSICS_WIDTH: 2,
+	PHYSICS_HEIGHT: 3,
+	PHYSICS_ANGLE: 3,
 
+	/////////////////////////
+	// ENTITY HOST NAMES  //
+	/////////////////////////
+
+	BLOCK: 0,
+	STRUCTURE: 1,
+
+	/////////////////////////
+	// ENTITY CHILD NAMES //
+	/////////////////////////
+
+	BLOCK0:0,
+	BLOCK1:1,
+	STRUCTURE0:256,
+	STRUCTURE1:257,
+
+	//////////////
+	// Systems //
+	//////////////
+
+	S_SHAPE: 0,
+	S_POSITION: 1,
+	S_DESCRIPTION: 2,
+	S_COLOR: 3,
+	S_ID: 4,
+	S_DRAW: 5,
+	S_SYMBOL: 6,
+	// S_VELOCITY: 6,
+	// S_STABILITY: 7,
+	MUTABLE: 0,
+	DATA: 1,
+	TYPE: 2,
+	SETUP: 3,
+	CLONE: 4,
+	S_UNDEFINED: 0,
+	S_TYPED_ARRAY: 1,
+	S_ARRAY: 2,
+	S_STRING: 3,
+	S_NUMBER: 4,
+	S_OBJECT: 5,
+	S_FUNCTION: 6,
+
+	///////////////////////
+	// STRUCTURE SYSTEM //
+	///////////////////////
+
+	STRUCTURE_ENTRIES: 3,
+	WIDTH: 0,
+	HEIGHT: 1,
+	DEPTH: 2,
+
+	//////////////////////
+	// POSITION SYSTEM //
+	//////////////////////
+
+	POSITION_ENTRIES: 3,
+	X: 0,
+	Y: 1,
+	Z: 2,
+
+	///////////////////
+	// COLOR SYSTEM //
+	///////////////////
+
+	HEX: 0,
+	DEC: 1,
 
 	//controller data
 	CROSS: 0,
@@ -191,11 +257,11 @@ var constNames = {
 	RIGHT_VERTICAL: 3,
 
 	// entity data
-	X: 0,
-	Y: 1,
+	// X: 0,
+	// Y: 1,
 	ANGLE: 2,
-	WIDTH: 3,
-	HEIGHT: 4,
+	// WIDTH: 3,
+	// HEIGHT: 4,
 	VELOCITY_X: 5,
 	VELOCITY_Y: 6,
 	TURNSPEED: 7,
@@ -232,7 +298,7 @@ var constNames = {
 	MOUSE_X: 0,
 	MOUSE_Y: 1,
 	MOUSE_LEFT: 2,
-	MOUSE_RIGHT:3,
+	MOUSE_RIGHT: 3,
 	SCROLL_Y: 4,
 
 	// polygon / light.js data
@@ -256,6 +322,7 @@ var engineNames = {
 	EMIT_EVENT: "event.emit",
 	BLOCK_MAKE: "makeBlock",
 	BLOCK_GET: "getBlock",
+	BLOCK_SET: "setBlock",
 	COMMAND_EACH: "eachCommand",
 	COMMAND_PROCESS: "processCommand",
 	COMMAND_ON: "event.on",
@@ -273,7 +340,7 @@ var engineNames = {
 	CONTROL_ON: "event.on",
 	CONTROL_LISTEN: "listen",
 	CONTROL_INIT: "initControl",
-	CONTROL_TRUE_MOUSE_DATA:"realMouseMoveData",
+	CONTROL_TRUE_MOUSE_DATA: "realMouseMoveData",
 	GUI_TEMPLATE: "template",
 	GUI_REMOVE: "removeGUI",
 	GUI_PUT: "putGUI",
@@ -285,9 +352,9 @@ var engineNames = {
 	DRAW_POLY: "poly",
 	DRAW_MOVE: "reposition",
 	DRAW_SETUP: "setupDraw",
-	DRAW_STAGE:"stage",
-	DRAW_RENDER:"drawSTage",
-	DRAW_ON:"event.on",
+	DRAW_STAGE: "stage",
+	DRAW_RENDER: "drawSTage",
+	DRAW_ON: "event.on",
 	DRAW_RENDERER: "renderer",
 	HELP_ITEM_REMOVE: "itemRemove",
 	HELP_INDEX_REMOVE: "indexRemove",
@@ -312,12 +379,12 @@ var engineNames = {
 	CHUNK_DRAW: "drawChunk",
 	CHUNK_MOVE: "moveViewPort",
 	CHUNK_HAS_SPACE: "checkForSpace",
-	CHUNK_ADD_STRUCTURE:"addStructure",
+	CHUNK_ADD_STRUCTURE: "addStructure",
 	CHUNK_DIVIDE_SCREEN: "divideScreen",
-	CHUNK_MAP_MOUSE:"mapMouse",
-	CHUNK_POSITION_X:"chunkMouseX",
-	CHUNK_POSITION_Z:"chunkMouseY",
-	CHUNK_PLACE:"initPlacementMode",
+	CHUNK_MAP_MOUSE: "mapMouse",
+	CHUNK_POSITION_X: "chunkMouseX",
+	CHUNK_POSITION_Z: "chunkMouseY",
+	CHUNK_PLACE: "initPlacementMode",
 	PHYSICS_TEST: "test",
 	PHYSICS_GET_VERTICES: "getVertices",
 	PLAYER_LENGTH: "length",
@@ -331,10 +398,16 @@ var engineNames = {
 	RIFFWAVE_MAKE: "make",
 	STRUCT_MAKE: "makeStruct",
 	STRUCT_GET: "getStruct",
-	STRUCTURES_DEFINE:"defineStructure",
-	STRUCTURES_PLACE:"placeStructure",
-	STRUCTURES_GET:"getStructure",
-	STRUCTURE_GUI:"makeStructuresGUI",
+	STRUCTURES_DEFINE: "defineStructure",
+	STRUCTURES_PLACE: "placeStructure",
+	STRUCTURES_GET: "getStructure",
+	STRUCTURE_GUI: "makeStructuresGUI",
+	SYSTEM_DEFINE_SYSTEM: "defineSystem",
+	SYSTEM_DEFINE_PARENT: "hostEntity",
+	SYSTEM_DEFINE_CHILD: "childEntity",
+	SYSTEM_CLONE_ENTITY: "cloneChild",
+	SYSTEM_READY: "systemReady",
+	SYSTEM_ON: "event.on",
 	TIME_NOW: "nowTime",
 	TIME_MICRO: "micro",
 };
@@ -343,6 +416,7 @@ var singleNames = {
 	EMIT_EVENT: "event.emit",
 	BLOCK_MAKE: "Block.make",
 	BLOCK_GET: "Block.get",
+	BLOCK_SET: "Block.set",
 	COMMAND_EACH: "Command.each",
 	COMMAND_PROCESS: "Command.process",
 	COMMAND_ON: "Command.on",
@@ -360,7 +434,7 @@ var singleNames = {
 	CONTROL_ON: "Control.on",
 	CONTROL_LISTEN: "Control.listen",
 	CONTROL_INIT: "Control.init",
-	CONTROL_TRUE_MOUSE_DATA:"Control.mouseMove",
+	CONTROL_TRUE_MOUSE_DATA: "Control.mouseMove",
 	GUI_TEMPLATE: "GUI.template",
 	GUI_REMOVE: "GUI.remove",
 	GUI_PUT: "GUI.put",
@@ -374,7 +448,7 @@ var singleNames = {
 	DRAW_SETUP: "Draw.setup",
 	DRAW_STAGE: "Draw.stage",
 	DRAW_RENDERER: "Draw.renderer",
-	DRAW_ON:"Draw.on",
+	DRAW_ON: "Draw.on",
 	DRAW_RENDER: "Draw.render",
 	HELP_ITEM_REMOVE: "Help.itemRemove",
 	HELP_INDEX_REMOVE: "Help.indexRemove",
@@ -400,11 +474,11 @@ var singleNames = {
 	CHUNK_MOVE: "Chunk.move",
 	CHUNK_HAS_SPACE: "Chunk.check",
 	CHUNK_DIVIDE_SCREEN: "Chunk.divideScreen",
-	CHUNK_ADD_STRUCTURE:"Chunk.addStruct",
-	CHUNK_MAP_MOUSE:"Chunk.mapMouse",
-	CHUNK_POSITION_X:"Chunk.blockX",
-	CHUNK_POSITION_Z:"Chunk.blockZ",
-	CHUNK_PLACE:"Chunk.place",
+	CHUNK_ADD_STRUCTURE: "Chunk.addStruct",
+	CHUNK_MAP_MOUSE: "Chunk.mapMouse",
+	CHUNK_POSITION_X: "Chunk.blockX",
+	CHUNK_POSITION_Z: "Chunk.blockZ",
+	CHUNK_PLACE: "Chunk.place",
 	PHYSICS_TEST: "Physics.test",
 	PHYSICS_GET_VERTICES: "Physics.getVertices",
 	PLAYER_LENGTH: "Player.length",
@@ -418,10 +492,16 @@ var singleNames = {
 	RIFFWAVE_MAKE: "RiffWave.make",
 	STRUCT_MAKE: "Struct.make",
 	STRUCT_GET: "Struct.get",
-	STRUCTURES_DEFINE:"Structures.define",
-	STRUCTURES_PLACE:"Structures.set",
-	STRUCTURES_GET:"Structures.get",
-	STRUCTURES_GUI:"Structures.gui",
+	STRUCTURES_DEFINE: "Structures.define",
+	STRUCTURES_PLACE: "Structures.set",
+	STRUCTURES_GET: "Structures.get",
+	STRUCTURES_GUI: "Structures.gui",
+	SYSTEM_DEFINE_SYSTEM: "System.system",
+	SYSTEM_DEFINE_PARENT: "System.host",
+	SYSTEM_DEFINE_CHILD: "System.child",
+	SYSTEM_CLONE_ENTITY: "System.clone",
+	SYSTEM_READY: "System.ready",
+	SYSTEM_ON: "System.on",
 	TIME_NOW: "Time.now",
 	TIME_MICRO: "Time.micro",
 };

@@ -1,8 +1,11 @@
 		DRAW_ON("RenderReady", function() {
-			Game.setup();
-			PLAYER_REGISTER(0, 0, -1);
-			PLAYER_INIT();
-			Game.start();
+			SYSTEM_ON("systemReady", function() {
+				Game.setup();
+				PLAYER_REGISTER(0, 0, -1);
+				PLAYER_INIT();
+				Game.start();
+			});
+			Game.systems();
 		});
 	});
 }(navigator, window, document));
