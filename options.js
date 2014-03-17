@@ -235,6 +235,12 @@ var constNames = {
 	HEX: 0,
 	DEC: 1,
 
+	//////////////////
+	// GAME STATES //
+	//////////////////
+
+	UNINITIALIZED:0,
+
 	//controller data
 	CROSS: 0,
 	CIRCLE: 1,
@@ -396,6 +402,11 @@ var engineNames = {
 	RIFFWAVE_LENGTH: "length",
 	RIFFWAVE_GET: "get",
 	RIFFWAVE_MAKE: "make",
+	STATE_POP:"Pop",
+	STATE_PUSH:"Push",
+	STATE_PEEK:"Peek",
+	STATE_FOCUS:"Focus",
+	STATE_NEW:"newGameState",
 	STRUCT_MAKE: "makeStruct",
 	STRUCT_GET: "getStruct",
 	STRUCTURES_DEFINE: "defineStructure",
@@ -435,6 +446,7 @@ var singleNames = {
 	CONTROL_LISTEN: "Control.listen",
 	CONTROL_INIT: "Control.init",
 	CONTROL_TRUE_MOUSE_DATA: "Control.mouseMove",
+
 	GUI_TEMPLATE: "GUI.template",
 	GUI_REMOVE: "GUI.remove",
 	GUI_PUT: "GUI.put",
@@ -488,6 +500,11 @@ var singleNames = {
 	RIFFWAVE_LENGTH: "RiffWave.length",
 	RIFFWAVE_GET: "RiffWave.get",
 	RIFFWAVE_MAKE: "RiffWave.make",
+	STATE_POP:"State.pop",
+	STATE_PUSH:"State.push",
+	STATE_PEEK:"State.peek",
+	STATE_FOCUS:"State.focus",
+	STATE_NEW:"State.new",
 	STRUCT_MAKE: "Struct.make",
 	STRUCT_GET: "Struct.get",
 	STRUCTURES_DEFINE: "Structures.define",
