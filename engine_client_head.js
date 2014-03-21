@@ -3,6 +3,8 @@ if (this.process && this.process.on) {
 		console.error(err.message, err.stack);
 	});
 }
+var gui = require('nw.gui');
+gui.App.setCrashDumpDir(require('path').dirname(global.require.main.filename)+"/crashes/");
 (function(navigator, window, document) {
 	var arrayProto = Array.prototype;
 	/**
