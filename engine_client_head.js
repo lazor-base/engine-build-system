@@ -39,3 +39,4 @@ gui.App.setCrashDumpDir(require('path').dirname(global.require.main.filename)+"/
 	}
 	window.Module = Module;
 	return Module(function(event) {
+	var absurd = Absurd();
