@@ -1,5 +1,6 @@
 process.on("uncaughtException", function(err) {
 	"use strict";
+	console.error(err.stack);
 	console.error(err.toString());
 });
 var path = require("path");
@@ -24,13 +25,13 @@ function mergeObject(object, container) {
 
 var options = config.options;
 var globalDefs = mergeObject(config.options.compress.global_defs, config.constNames);
-var engineOptions = config.engineNames;
-var singleOptions = config.singleNames;
+var localDataNames = config.local;
+var remoteDataNames = config.remote;
 
 var jsHintOptions = require(rootDir + "build_system/jsHint.json");
 
 jsHintOptions.globals = mergeObject(config.constNames, jsHintOptions.globals);
-for(var attr in jsHintOptions.globals) {
+for (var attr in jsHintOptions.globals) {
 	jsHintOptions.globals[attr] = false;
 }
 fs.writeFileSync(rootDir + ".jshintrc", JSON.stringify(jsHintOptions));
@@ -107,100 +108,246 @@ var variables = [];
 var functions = [];
 var others = [];
 var returns = [];
+var htmlContent = [];
+var badList = ["build_system", "node_modules", ".git", "crashes", "build"];
 
-var files = fs.readdirSync(rootDir);
-for (var i = 0; i < files.length; i++) {
-	var file = files[i];
-	nameRegex.lastIndex = 0;
-	fileNameRegex.lastIndex = 0;
-	targetFolderRegex.lastIndex = 0;
-	variableRegex.lastIndex = 0;
-	functionRegex.lastIndex = 0;
-	otherRegex.lastIndex = 0;
-	returnRegex.lastIndex = 0;
-	if (file.indexOf("js") > -1) {
-		var string = fs.readFileSync(rootDir + file, "utf8");
-		if (string.match(copyOriginalFileRegex) !== null && string.split(copyOriginalFileRegex)[1] === "true") {
-			for (var attr in singleOptions) {
-				if (string.indexOf(attr) > -1) {
-					string = string.replace(new RegExp(attr, "g"), singleOptions[attr]);
+function isGoodFile(file) {
+	"use strict";
+	for (var i = 0; i < badList.length; i++) {
+		if (file.indexOf(badList[i]) > -1) {
+			return false;
+		}
+	}
+	return true;
+}
+
+var walk = function(dir, done) {
+	"use strict";
+	var results = [];
+	fs.readdir(dir, function(err, list) {
+		if (err) {
+			return done(err);
+		}
+		var pending = list.length;
+		if (!pending) {
+			return done(null, results);
+		}
+		list.forEach(function(file) {
+			file = dir + "/" + file;
+			fs.stat(file, function(err, stat) {
+				if (stat && stat.isDirectory()) {
+					walk(file, function(err, res) {
+						results = results.concat(res);
+						if (!--pending) {
+							done(null, results);
+						}
+					});
+				} else {
+					if (isGoodFile(file)) {
+						results.push(file);
+					}
+					if (!--pending) {
+						done(null, results);
+					}
+				}
+			});
+		});
+	});
+};
+walk(rootDir, function(err, files) {
+	"use strict";
+	if (err) {
+		throw new Error(err);
+	}
+	for (var t = 0; t < files.length; t++) {
+		var file = files[t];
+		var extensionName = path.extname(file);
+		var fileName = path.basename(file);
+		nameRegex.lastIndex = 0;
+		fileNameRegex.lastIndex = 0;
+		targetFolderRegex.lastIndex = 0;
+		variableRegex.lastIndex = 0;
+		functionRegex.lastIndex = 0;
+		otherRegex.lastIndex = 0;
+		returnRegex.lastIndex = 0;
+		var string = fs.readFileSync(file, "utf8");
+		if (extensionName === ".js" || extensionName === ".json") {
+			if (string.match(copyOriginalFileRegex) !== null && string.split(copyOriginalFileRegex)[1] === "true") {
+				for (var attr in remoteDataNames) {
+					if (string.indexOf(attr) > -1) {
+						string = string.replace(new RegExp(attr, "g"), remoteDataNames[attr]);
+					}
+				}
+				if (extensionName === ".js") {
+					fs.writeFileSync(rootDir + "build/temp/client/" + fileName, string);
+					console.log("Wrote temporary file to " + rootDir + "build/temp/client/" + fileName);
+					uglifyCode("client", path.basename(fileName, extensionName));
+				} else {
+					fs.writeFileSync(rootDir + "build/client/" + fileName, string);
+					console.log("Wrote temporary file to " + rootDir + "build/client/" + fileName);
+				}
+			} else if (string.match(nameRegex) !== null) {
+				var result = string.split(fileNameRegex)[1];
+				// only gather files that are prepped for the engine.
+				names.push(string.split(nameRegex)[1]);
+				fileNames.push(result.split(","));
+				targetFolders.push(string.split(targetFolderRegex)[1].split(","));
+				variables.push(string.split(variableRegex)[1]);
+				functions.push(string.split(functionRegex)[1]);
+				others.push(string.split(otherRegex)[1]);
+				returns.push(string.split(returnRegex)[1].trim());
+			}
+		} else if (extensionName === ".html") {
+			htmlContent.push(string.trim());
+		}
+	}
+	var fileContents = {};
+	for (var i = 0; i < names.length; i++) {
+		for (var e = 0; e < fileNames[i].length; e++) {
+			var id = fileNames[i][e].toLowerCase() + "_" + targetFolders[i][e].toLowerCase();
+			if (!fileContents[id]) {
+				fileContents[id] = {
+					names: [names[i]],
+					fileName: fileNames[i][e],
+					folder: targetFolders[i][e].toLowerCase(),
+					variables: [variables[i]],
+					functions: [functions[i]],
+					others: [others[i]],
+					returns: [returns[i]]
+				};
+			} else {
+				var found = false;
+				for (var r = 0; r < fileContents[id].names.length; r++) {
+					if (fileContents[id].names[r] === names[i]) {
+						found = true;
+						break;
+					}
+				}
+				if (found) {
+					if (variables[i].length) {
+						fileContents[id].variables[r] = fileContents[id].variables[r] + variables[i];
+					}
+					if (functions[i].length) {
+						fileContents[id].functions[r] = fileContents[id].functions[r] + functions[i];
+					}
+					if (others[i].length) {
+						fileContents[id].others[r] = fileContents[id].others[r] + others[i];
+					}
+					if (returns[i].length) {
+						fileContents[id].returns[r] = fileContents[id].returns[r] + "," + returns[i];
+					}
+				} else {
+					if (names[i].length) {
+						fileContents[id].names.push(names[i]);
+					}
+					if (variables[i].length) {
+						fileContents[id].variables.push(variables[i]);
+					}
+					if (functions[i].length) {
+						fileContents[id].functions.push(functions[i]);
+					}
+					if (others[i] && others[i].length) {
+						fileContents[id].others.push(others[i]);
+					}
+					if (returns[i].length) {
+						fileContents[id].returns.push(returns[i]);
+					}
 				}
 			}
-			if (file.indexOf(".json") === -1) {
-				fs.writeFileSync(rootDir + "build/temp/client/" + file, string);
-				console.log("Wrote temporary file to " + rootDir + "build/temp/client/" + file);
-				uglifyCode("client", file.split(".js")[0]);
-			} else {
-				fs.writeFileSync(rootDir + "build/client/" + file, string);
-				console.log("Wrote temporary file to " + rootDir + "build/client/" + file);
-			}
-		} else if (string.match(nameRegex) !== null) {
-			// only gather files that are prepped for the engine.
-			names.push(string.split(nameRegex)[1]);
-			fileNames.push(string.split(fileNameRegex)[1].split(","));
-			targetFolders.push(string.split(targetFolderRegex)[1].split(","));
-			variables.push(string.split(variableRegex)[1]);
-			functions.push(string.split(functionRegex)[1]);
-			others.push(string.split(otherRegex)[1]);
-			returns.push(string.split(returnRegex)[1]);
 		}
 	}
-}
 
-var fileContents = {};
-for (var i = 0; i < names.length; i++) {
-	for (var e = 0; e < fileNames[i].length; e++) {
-		var id = fileNames[i][e].toLowerCase() + "_" + targetFolders[i][e].toLowerCase();
-		if (!fileContents[id]) {
-			fileContents[id] = {
-				names: [names[i]],
-				fileName: fileNames[i][e],
-				folder: targetFolders[i][e].toLowerCase(),
-				variables: [variables[i]],
-				functions: [functions[i]],
-				others: [others[i]],
-				returns: [returns[i]]
-			};
+	for (var fileId in fileContents) {
+		var data = fileContents[fileId];
+		var content = "";
+		var header = "";
+		var footer = "";
+		if (fileId.indexOf("engine") > -1) {
+			header = fs.readFileSync(rootDir + "build_system/" + fileId + "_head.js", "utf8");
+			footer = fs.readFileSync(rootDir + "build_system/" + fileId + "_foot.js", "utf8");
 		} else {
-			fileContents[id].names.push(names[i]);
-			fileContents[id].variables.push(variables[i]);
-			fileContents[id].functions.push(functions[i]);
-			fileContents[id].others.push(others[i]);
-			fileContents[id].returns.push(returns[i]);
+			header = fs.readFileSync(rootDir + "build_system/default_" + data.folder + "_head.js", "utf8");
+			footer = fs.readFileSync(rootDir + "build_system/default_" + data.folder + "_foot.js", "utf8");
 		}
-	}
-}
+		content = header + data.variables.join("\n\r") + data.functions.join("\n\r") + data.others.join("\n\r");
 
-for (var id in fileContents) {
-	var data = fileContents[id];
-	var content = "";
-	if (id.indexOf("engine") > -1) {
-		var header = fs.readFileSync(rootDir + "build_system/" + id + "_head.js", "utf8");
-		var footer = fs.readFileSync(rootDir + "build_system/" + id + "_foot.js", "utf8");
-	} else {
-		var header = fs.readFileSync(rootDir + "build_system/default_" + data.folder + "_head.js", "utf8");
-		var footer = fs.readFileSync(rootDir + "build_system/default_" + data.folder + "_foot.js", "utf8");
-	}
-	content = header + data.variables.join("\n\r") + data.functions.join("\n\r") + data.others.join("\n\r");
-
-	for (var i = 0; i < data.returns.length; i++) {
-		content += "window." + data.names[i] + "={" + data.returns[i] + "};\n\r";
-	}
-	content += footer;
-	if (data.fileName.toLowerCase().indexOf("engine") > -1) {
-		for (var attr in engineOptions) {
-			if (content.indexOf(attr) > -1) {
-				content = content.replace(new RegExp(attr, "g"), engineOptions[attr]);
+		for (var f = 0; f < data.returns.length; f++) {
+			content += "window." + data.names[f] + "={" + data.returns[f] + "};\n\r";
+		}
+		content += footer;
+		for (var fileAttr in localDataNames) {
+			if (data.names.indexOf(fileAttr) > -1) {
+				for (var property in localDataNames[fileAttr]) {
+					if (content.indexOf(property) > -1) {
+						content = content.replace(new RegExp(property, "g"), localDataNames[fileAttr][property]);
+					}
+				}
 			}
 		}
-	} else {
-		for (var attr in singleOptions) {
-			if (content.indexOf(attr) > -1) {
-				content = content.replace(new RegExp(attr, "g"), singleOptions[attr]);
+		for (var remoteAttr in remoteDataNames) {
+			if (content.indexOf(remoteAttr) > -1) {
+				content = content.replace(new RegExp(remoteAttr, "g"), remoteDataNames[remoteAttr]);
 			}
 		}
+
+		fs.writeFileSync(rootDir + "build/temp/" + data.folder + "/" + data.fileName + ".js", content);
+		console.log("Wrote temporary file to " + rootDir + "build/temp/" + data.folder + "/" + data.fileName + ".js");
+		uglifyCode(data.folder, data.fileName);
 	}
-	fs.writeFileSync(rootDir + "build/temp/" + data.folder + "/" + data.fileName + ".js", content);
-	console.log("Wrote temporary file to " + rootDir + "build/temp/" + data.folder + "/" + data.fileName + ".js");
-	uglifyCode(data.folder, data.fileName);
-}
+
+	Array.prototype.move = function(pos1, pos2) {
+		// local variables
+		var i, tmp;
+		// cast input parameters to integers
+		pos1 = parseInt(pos1, 10);
+		pos2 = parseInt(pos2, 10);
+		// if positions are different and inside array
+		if (pos1 !== pos2 && 0 <= pos1 && pos1 <= this.length && 0 <= pos2 && pos2 <= this.length) {
+			// save element from position 1
+			tmp = this[pos1];
+			// move element down and shift other elements up
+			if (pos1 < pos2) {
+				for (i = pos1; i < pos2; i++) {
+					this[i] = this[i + 1];
+				}
+			}
+			// move element up and shift other elements down
+			else {
+				for (i = pos1; i > pos2; i--) {
+					this[i] = this[i - 1];
+				}
+			}
+			// put element from position 1 to destination
+			this[pos2] = tmp;
+		}
+	};
+	var builtFiles = fs.readdirSync(rootDir + "build/client/");
+	var index = 0;
+	while (index < builtFiles.length) {
+		if (fs.lstatSync(rootDir + "build/client/" + builtFiles[index]).isFile()) {
+			index++;
+		} else {
+			builtFiles.splice(index, 1);
+		}
+	}
+	var basicHTMLPage = fs.readFileSync(rootDir + "build_system/index.html", "utf8");
+	htmlContent = htmlContent.join("\n").replace(new RegExp("\n", "g"), "\n\t\t\t");
+	basicHTMLPage = basicHTMLPage.replace(new RegExp("<% HTML %>", "g"), htmlContent);
+	fs.writeFileSync(rootDir + "build/temp/index.html", basicHTMLPage);
+	var htmlPage = fs.readFileSync(rootDir + "build/temp/index.html", "utf8");
+	var invalidScripts = ["WebWorker.js", "package.json", "index.html"];
+	for (var j = 0; j < invalidScripts.length; j++) {
+		if (builtFiles.indexOf(invalidScripts[j]) > -1) {
+			builtFiles.splice(builtFiles.indexOf(invalidScripts[j]), 1);
+		}
+	}
+	var engineIndex = builtFiles.indexOf("Engine.js");
+	builtFiles.move(engineIndex, builtFiles.length - 1);
+	var gameIndex = builtFiles.indexOf("Game.js");
+	builtFiles.move(gameIndex, builtFiles.length - 1);
+	for (var k = 0; k < builtFiles.length; k++) {
+		builtFiles[k] = "<script src='" + builtFiles[k] + "'></script>";
+	}
+	htmlPage = htmlPage.replace(new RegExp("<% Scripts %>", "g"), builtFiles.join("\n\t\t"));
+	fs.writeFileSync(rootDir + "build/Client/index.html", htmlPage);
+});

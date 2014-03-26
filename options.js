@@ -75,8 +75,8 @@ var constNames = {
 	BLOCK_ARRAY: 3,
 	DATA_ARRAY: 4,
 	HEIGHT_ARRAY: 5,
-	DRAW_X:6,
-	DRAW_Z:7,
+	DRAW_X: 6,
+	DRAW_Z: 7,
 	BUILD_CHUNK: 0,
 	CHUNK_COMPLETE: 1,
 	DEBUG: 2,
@@ -179,10 +179,10 @@ var constNames = {
 	// ENTITY CHILD NAMES //
 	/////////////////////////
 
-	BLOCK0:0,
-	BLOCK1:1,
-	STRUCTURE0:256,
-	STRUCTURE1:257,
+	BLOCK0: 0,
+	BLOCK1: 1,
+	STRUCTURE0: 256,
+	STRUCTURE1: 257,
 
 	//////////////
 	// Systems //
@@ -239,7 +239,22 @@ var constNames = {
 	// GAME STATES //
 	//////////////////
 
-	UNINITIALIZED:0,
+	LOADING: 0,
+	GAME: 1,
+	MAIN_MENU: 2,
+	GAME_INTERFACE:3,
+
+	////////////////////////
+	// GAME STATE DEPTHS //
+	////////////////////////
+
+	SETUP_DEPTH: 0,
+	LOADING_DEPTH: 10,
+	MAIN_MENU_DEPTH: 1,
+	GAME_DEPTH: 2,
+	GAME_INTERFACE_DEPTH:3,
+	PAUSE_MENU_DEPTH: 4,
+
 
 	//controller data
 	CROSS: 0,
@@ -326,104 +341,7 @@ var constNames = {
 	FALSE: 0
 };
 
-var engineNames = {
-	EMIT_EVENT: "event.emit",
-	BLOCK_MAKE: "makeBlock",
-	BLOCK_GET: "getBlock",
-	BLOCK_SET: "setBlock",
-	COMMAND_EACH: "eachCommand",
-	COMMAND_PROCESS: "processCommand",
-	COMMAND_ON: "event.on",
-	COMMAND_PUSH: "pushCommand",
-	COMMAND_MAKE: "newCommand",
-	CONFIG_INPUT: "input",
-	CONFIG_ACTION: "action",
-	CONFIG_MATCH_KEY: "matchKey",
-	CONFIG_BINDING: "binding",
-	CONFIG_UNBIND: "unbind",
-	CONFIG_BIND: "bind",
-	CONFIG_LENGTH: "actions",
-	CONTROL_PREVENT_DEFAULT: "preventDefault",
-	CONTROL_GAMEPADS: "gamepads",
-	CONTROL_ON: "event.on",
-	CONTROL_LISTEN: "listen",
-	CONTROL_INIT: "initControl",
-	CONTROL_TRUE_MOUSE_DATA: "realMouseMoveData",
-	GUI_TEMPLATE: "template",
-	GUI_REMOVE: "removeGUI",
-	GUI_PUT: "putGUI",
-	GUI_GET: "getGUI",
-	GUI_MAKE: "makeGUI",
-	GUI_SET: "setGUI",
-	GUI_ON: "event.on",
-	GUI_EMIT: "event.emit",
-	DRAW_POLY: "poly",
-	DRAW_MOVE: "reposition",
-	DRAW_SETUP: "setupDraw",
-	DRAW_STAGE: "stage",
-	DRAW_RENDER: "drawSTage",
-	DRAW_ON: "event.on",
-	DRAW_RENDERER: "renderer",
-	HELP_ITEM_REMOVE: "itemRemove",
-	HELP_INDEX_REMOVE: "indexRemove",
-	HELP_HAS: "has",
-	HELP_SPLICE: "splice",
-	LIGHT_SOURCE: "newLight",
-	LIGHT_VIEW: "newViewPort",
-	LIGHT_WALL: "newWall",
-	LIGHT_PARSE: "parseLight",
-	LIGHT_ADD_LIGHT: "addLight",
-	LIGHT_ADD_VIEW: "addViewPort",
-	LIGHT_ADD_WALL: "addWall",
-	LIST_CLEAN: "cleanList",
-	LIST_SIZE: "size",
-	LIST_GET: "getList",
-	LIST_PUT: "putList",
-	LIST_LINKED: "linked",
-	LOOP_GO: "go",
-	LOOP_EVERY: "event.on",
-	LOOP_QUEUE: "queue",
-	CHUNK_MAKE: "makeChunk",
-	CHUNK_DRAW: "drawChunk",
-	CHUNK_MOVE: "changeOffset",
-	CHUNK_HAS_SPACE: "checkForSpace",
-	CHUNK_ADD_STRUCTURE: "addStructure",
-	CHUNK_DIVIDE_SCREEN: "divideScreen",
-	CHUNK_MAP_MOUSE: "mapMouse",
-	CHUNK_PLACE: "initPlacementMode",
-	PHYSICS_TEST: "test",
-	PHYSICS_GET_VERTICES: "getVertices",
-	PLAYER_LENGTH: "length",
-	PLAYER_REGISTER: "register",
-	PLAYER_FIND: "find",
-	PLAYER_INIT: "initPlayer",
-	PLAYER_IS_LOCAL: "isLocal",
-	PLAYER_TOGGLE_PLAYER: "togglePlayer",
-	RIFFWAVE_LENGTH: "length",
-	RIFFWAVE_GET: "get",
-	RIFFWAVE_MAKE: "make",
-	STATE_DEACTIVATE:"deactivateState",
-	STATE_TOGGLE:"toggleState",
-	STATE_PREVIOUS:"previousState",
-	STATE_ACTIVATE:"activateState",
-	STATE_NEW:"newGameState",
-	STRUCT_MAKE: "makeStruct",
-	STRUCT_GET: "getStruct",
-	STRUCTURES_DEFINE: "defineStructure",
-	STRUCTURES_PLACE: "placeStructure",
-	STRUCTURES_GET: "getStructure",
-	STRUCTURE_GUI: "makeStructuresGUI",
-	SYSTEM_DEFINE_SYSTEM: "defineSystem",
-	SYSTEM_DEFINE_PARENT: "hostEntity",
-	SYSTEM_DEFINE_CHILD: "childEntity",
-	SYSTEM_CLONE_ENTITY: "cloneChild",
-	SYSTEM_READY: "systemReady",
-	SYSTEM_ON: "event.on",
-	TIME_NOW: "nowTime",
-	TIME_MICRO: "micro",
-};
-
-var singleNames = {
+var remote = {
 	EMIT_EVENT: "event.emit",
 	BLOCK_MAKE: "Block.make",
 	BLOCK_GET: "Block.get",
@@ -452,6 +370,7 @@ var singleNames = {
 	GUI_GET: "GUI.get",
 	GUI_MAKE: "GUI.make",
 	GUI_SET: "GUI.set",
+	GUI_DUPLICATE: "GUI.duplicate",
 	GUI_ON: "GUI.on",
 	GUI_EMIT: "GUI.emit",
 	DRAW_POLY: "Draw.poly",
@@ -499,17 +418,19 @@ var singleNames = {
 	RIFFWAVE_LENGTH: "RiffWave.length",
 	RIFFWAVE_GET: "RiffWave.get",
 	RIFFWAVE_MAKE: "RiffWave.make",
-	STATE_DEACTIVATE:"State.deactivate",
-	STATE_TOGGLE:"State.toggle",
-	STATE_PREVIOUS:"State.previous",
-	STATE_ACTIVATE:"State.activate",
-	STATE_NEW:"State.newState",
+	STATE_DEACTIVATE: "State.deactivate",
+	STATE_TOGGLE: "State.toggle",
+	STATE_PREVIOUS: "State.previous",
+	STATE_ACTIVATE: "State.activate",
+	STATE_NEW: "State.newState",
+	STATE_CHECK: "State.check",
 	STRUCT_MAKE: "Struct.make",
 	STRUCT_GET: "Struct.get",
 	STRUCTURES_DEFINE: "Structures.define",
 	STRUCTURES_PLACE: "Structures.set",
 	STRUCTURES_GET: "Structures.get",
-	STRUCTURES_GUI: "Structures.gui",
+	STRUCTURES_EVENT: "Structures.event",
+	STRUCTURES_EACH: "Structures.each",
 	SYSTEM_DEFINE_SYSTEM: "System.system",
 	SYSTEM_DEFINE_PARENT: "System.host",
 	SYSTEM_DEFINE_CHILD: "System.child",
@@ -520,12 +441,160 @@ var singleNames = {
 	TIME_MICRO: "Time.micro",
 };
 
-for (var attr in engineNames) {
-	options.compress.global_defs[attr] = engineNames[attr];
+var local = {
+	Block: {
+		BLOCK_MAKE: "makeBlock",
+		BLOCK_GET: "getBlock",
+		BLOCK_SET: "setBlock"
+	},
+	Command: {
+		COMMAND_EACH: "eachCommand",
+		COMMAND_PROCESS: "processCommand",
+		COMMAND_ON: "event.on",
+		COMMAND_PUSH: "pushCommand",
+		COMMAND_MAKE: "newCommand"
+	},
+	Control: {
+		CONTROL_PREVENT_DEFAULT: "preventDefault",
+		CONTROL_GAMEPADS: "gamepads",
+		CONTROL_ON: "event.on",
+		CONTROL_LISTEN: "listen",
+		CONTROL_INIT: "initControl",
+		CONTROL_TRUE_MOUSE_DATA: "realMouseMoveData"
+	},
+	Config: {
+		CONFIG_INPUT: "input",
+		CONFIG_ACTION: "action",
+		CONFIG_MATCH_KEY: "matchKey",
+		CONFIG_BINDING: "binding",
+		CONFIG_UNBIND: "unbind",
+		CONFIG_BIND: "bind",
+		CONFIG_LENGTH: "actions",
+	},
+	GUI: {
+		GUI_TEMPLATE: "template",
+		GUI_REMOVE: "removeGUI",
+		GUI_PUT: "putGUI",
+		GUI_GET: "getGUI",
+		GUI_MAKE: "makeGUI",
+		GUI_SET: "setGUI",
+		GUI_DUPLICATE: "duplicate",
+		GUI_ON: "event.on",
+		GUI_EMIT: "event.emit"
+	},
+	Draw: {
+		DRAW_POLY: "poly",
+		DRAW_MOVE: "reposition",
+		DRAW_SETUP: "setupDraw",
+		DRAW_STAGE: "stage",
+		DRAW_RENDER: "drawSTage",
+		DRAW_ON: "event.on",
+		DRAW_RENDERER: "renderer"
+	},
+	Game: {
+		MAIN_MENU_STATE:"mainMenuState",
+		LOADING_STATE:"loadScreenState",
+		GAME_STATE:"gameState",
+		GAME_INTERFACE_STATE:"gameInterfaceState",
+		UI_BUTTON:"UIButton",
+		UI_LOADING_PAGE:"UILoadingPage",
+		UI_GAME_INTERFACE:"UIGameInterface"
+	},
+	Help: {
+		HELP_ITEM_REMOVE: "itemRemove",
+		HELP_INDEX_REMOVE: "indexRemove",
+		HELP_HAS: "has",
+		HELP_SPLICE: "splice"
+	},
+	Light: {
+		LIGHT_SOURCE: "newLight",
+		LIGHT_VIEW: "newViewPort",
+		LIGHT_WALL: "newWall",
+		LIGHT_PARSE: "parseLight",
+		LIGHT_ADD_LIGHT: "addLight",
+		LIGHT_ADD_VIEW: "addViewPort",
+		LIGHT_ADD_WALL: "addWall"
+	},
+	List: {
+		LIST_CLEAN: "cleanList",
+		LIST_SIZE: "size",
+		LIST_GET: "getList",
+		LIST_PUT: "putList",
+		LIST_LINKED: "linked"
+	},
+	Loop: {
+		LOOP_GO: "go",
+		LOOP_EVERY: "event.on",
+		LOOP_QUEUE: "queue"
+	},
+	Chunk: {
+		CHUNK_MAKE: "makeChunk",
+		CHUNK_DRAW: "drawChunk",
+		CHUNK_MOVE: "changeOffset",
+		CHUNK_HAS_SPACE: "checkForSpace",
+		CHUNK_ADD_STRUCTURE: "addStructure",
+		CHUNK_DIVIDE_SCREEN: "divideScreen",
+		CHUNK_MAP_MOUSE: "mapMouse",
+		CHUNK_PLACE: "initPlacementMode"
+	},
+	Physics: {
+		PHYSICS_TEST: "test",
+		PHYSICS_GET_VERTICES: "getVertices"
+	},
+	Player: {
+		PLAYER_LENGTH: "length",
+		PLAYER_REGISTER: "register",
+		PLAYER_FIND: "find",
+		PLAYER_INIT: "initPlayer",
+		PLAYER_IS_LOCAL: "isLocal",
+		PLAYER_TOGGLE_PLAYER: "togglePlayer"
+	},
+	RiffWave: {
+		RIFFWAVE_LENGTH: "length",
+		RIFFWAVE_GET: "get",
+		RIFFWAVE_MAKE: "make"
+	},
+	State: {
+		STATE_DEACTIVATE: "deactivateState",
+		STATE_TOGGLE: "toggleState",
+		STATE_PREVIOUS: "previousState",
+		STATE_ACTIVATE: "activateState",
+		STATE_CHECK: "checkState",
+		STATE_NEW: "newGameState"
+	},
+	Struct: {
+		STRUCT_MAKE: "makeStruct",
+		STRUCT_GET: "getStruct"
+	},
+	Structures: {
+		STRUCTURES_DEFINE: "defineStructure",
+		STRUCTURES_PLACE: "placeStructure",
+		STRUCTURES_GET: "getStructure",
+		STRUCTURES_EVENT: "eventListener",
+		STRUCTURES_EACH: "eachStructure"
+	},
+	System: {
+		SYSTEM_DEFINE_SYSTEM: "defineSystem",
+		SYSTEM_DEFINE_PARENT: "hostEntity",
+		SYSTEM_DEFINE_CHILD: "childEntity",
+		SYSTEM_CLONE_ENTITY: "cloneChild",
+		SYSTEM_READY: "systemReady",
+		SYSTEM_ON: "event.on"
+	},
+	Time: {
+		TIME_NOW: "nowTime",
+		TIME_MICRO: "micro"
+	}
+};
+
+for (var attr in local) {
+	for (var property in local[attr]) {
+		options.compress.global_defs[property] = local[attr][property];
+	}
 }
 
-for (var attr in singleNames) {
-	options.compress.global_defs[attr] = singleNames[attr];
+for (var attr in remote) {
+	options.compress.global_defs[attr] = remote[attr];
 }
 
 for (var attr in constNames) {
@@ -534,7 +603,7 @@ for (var attr in constNames) {
 
 module.exports = {
 	options: options,
-	singleNames: singleNames,
-	engineNames: engineNames,
+	remote: remote,
+	local: local,
 	constNames: constNames
 };
