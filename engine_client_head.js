@@ -4,7 +4,7 @@ if (this.process && this.process.on) {
 	});
 }
 var gui = require('nw.gui');
-gui.App.setCrashDumpDir(require('path').dirname(global.require.main.filename)+"/crashes/");
+gui.App.setCrashDumpDir(require('path').dirname(global.require.main.filename) + "/crashes/");
 (function(navigator, window, document) {
 	var arrayProto = Array.prototype;
 	/**
@@ -28,6 +28,9 @@ gui.App.setCrashDumpDir(require('path').dirname(global.require.main.filename)+"/
 					}
 				}, false);
 			},
+			off: function(name, callback) {
+				document.removeEventListener(name, callback);
+			},
 			emit: function(name) {
 				var args = arrayProto.splice.call(arguments, 1, arguments.length - 1); // all arguments but the name
 				var myEvent = new CustomEvent(name, {
@@ -39,4 +42,4 @@ gui.App.setCrashDumpDir(require('path').dirname(global.require.main.filename)+"/
 	}
 	window.Module = Module;
 	return Module(function(event) {
-	var absurd = Absurd();
+		var absurd = Absurd();
