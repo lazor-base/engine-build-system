@@ -128,6 +128,7 @@ var constNames = {
 	MOUSE_MOVE_Y: 5,
 	MOUSE_WHEEL_X: 6,
 	MOUSE_WHEEL_Y: 7,
+	ESC_KEY_CODE:27,
 
 	///////////////////
 	// CONSTRUCTION //
@@ -243,6 +244,7 @@ var constNames = {
 	GAME: 1,
 	MAIN_MENU: 2,
 	GAME_INTERFACE:3,
+	PAUSE_MENU:4,
 
 	////////////////////////
 	// GAME STATE DEPTHS //
@@ -323,6 +325,7 @@ var constNames = {
 	MOUSE_LEFT: 2,
 	MOUSE_RIGHT: 3,
 	SCROLL_Y: 4,
+	ESC:5,
 
 	// polygon / light.js data
 	R: 7,
@@ -349,6 +352,7 @@ var remote = {
 	COMMAND_EACH: "Command.each",
 	COMMAND_PROCESS: "Command.process",
 	COMMAND_ON: "Command.on",
+	COMMAND_OFF: "Command.off",
 	COMMAND_PUSH: "Command.push",
 	COMMAND_MAKE: "Command.make",
 	CONFIG_INPUT: "Config.input",
@@ -361,6 +365,7 @@ var remote = {
 	CONTROL_PREVENT_DEFAULT: "Control.preventDefault",
 	CONTROL_GAMEPADS: "Control.gamepads",
 	CONTROL_ON: "Control.on",
+	CONTROL_OFF: "Control.off",
 	CONTROL_LISTEN: "Control.listen",
 	CONTROL_INIT: "Control.init",
 	CONTROL_TRUE_MOUSE_DATA: "Control.mouseMove",
@@ -372,6 +377,7 @@ var remote = {
 	GUI_SET: "GUI.set",
 	GUI_DUPLICATE: "GUI.duplicate",
 	GUI_ON: "GUI.on",
+	GUI_OFF: "GUI.off",
 	GUI_EMIT: "GUI.emit",
 	DRAW_POLY: "Draw.poly",
 	DRAW_MOVE: "Draw.move",
@@ -379,6 +385,7 @@ var remote = {
 	DRAW_STAGE: "Draw.stage",
 	DRAW_RENDERER: "Draw.renderer",
 	DRAW_ON: "Draw.on",
+	DRAW_OFF: "Draw.off",
 	DRAW_RENDER: "Draw.render",
 	HELP_ITEM_REMOVE: "Help.itemRemove",
 	HELP_INDEX_REMOVE: "Help.indexRemove",
@@ -398,6 +405,7 @@ var remote = {
 	LIST_LINKED: "List.linked",
 	LOOP_GO: "Loop.go",
 	LOOP_EVERY: "Loop.every",
+	LOOP_REMOVE: "Loop.remove",
 	LOOP_QUEUE: "Loop.queue",
 	CHUNK_MAKE: "Chunk.make",
 	CHUNK_DRAW: "Chunk.draw",
@@ -437,6 +445,7 @@ var remote = {
 	SYSTEM_CLONE_ENTITY: "System.clone",
 	SYSTEM_READY: "System.ready",
 	SYSTEM_ON: "System.on",
+	SYSTEM_OFF: "System.off",
 	TIME_NOW: "Time.now",
 	TIME_MICRO: "Time.micro",
 };
@@ -451,6 +460,7 @@ var local = {
 		COMMAND_EACH: "eachCommand",
 		COMMAND_PROCESS: "processCommand",
 		COMMAND_ON: "event.on",
+		COMMAND_OFF: "event.off",
 		COMMAND_PUSH: "pushCommand",
 		COMMAND_MAKE: "newCommand"
 	},
@@ -458,6 +468,7 @@ var local = {
 		CONTROL_PREVENT_DEFAULT: "preventDefault",
 		CONTROL_GAMEPADS: "gamepads",
 		CONTROL_ON: "event.on",
+		CONTROL_OFF: "event.off",
 		CONTROL_LISTEN: "listen",
 		CONTROL_INIT: "initControl",
 		CONTROL_TRUE_MOUSE_DATA: "realMouseMoveData"
@@ -480,6 +491,7 @@ var local = {
 		GUI_SET: "setGUI",
 		GUI_DUPLICATE: "duplicate",
 		GUI_ON: "event.on",
+		GUI_OFF: "event.off",
 		GUI_EMIT: "event.emit"
 	},
 	Draw: {
@@ -487,18 +499,22 @@ var local = {
 		DRAW_MOVE: "reposition",
 		DRAW_SETUP: "setupDraw",
 		DRAW_STAGE: "stage",
-		DRAW_RENDER: "drawSTage",
+		DRAW_RENDER: "drawStage",
+		DRAW_RENDERER: "renderer",
 		DRAW_ON: "event.on",
-		DRAW_RENDERER: "renderer"
+		DRAW_OFF: "event.off"
 	},
 	Game: {
 		MAIN_MENU_STATE:"mainMenuState",
 		LOADING_STATE:"loadScreenState",
 		GAME_STATE:"gameState",
+		PAUSE_STATE:"pauseState",
 		GAME_INTERFACE_STATE:"gameInterfaceState",
 		UI_BUTTON:"UIButton",
 		UI_LOADING_PAGE:"UILoadingPage",
-		UI_GAME_INTERFACE:"UIGameInterface"
+		UI_PAUSE_MENU:"UIPauseMenu",
+		UI_GAME_INTERFACE:"UIGameInterface",
+		UI_GAME_MAIN_MENU:"UIGameMainMenu"
 	},
 	Help: {
 		HELP_ITEM_REMOVE: "itemRemove",
@@ -525,6 +541,7 @@ var local = {
 	Loop: {
 		LOOP_GO: "go",
 		LOOP_EVERY: "event.on",
+		LOOP_REMOVE: "event.off",
 		LOOP_QUEUE: "queue"
 	},
 	Chunk: {
@@ -579,7 +596,8 @@ var local = {
 		SYSTEM_DEFINE_CHILD: "childEntity",
 		SYSTEM_CLONE_ENTITY: "cloneChild",
 		SYSTEM_READY: "systemReady",
-		SYSTEM_ON: "event.on"
+		SYSTEM_ON: "event.on",
+		SYSTEM_OFF: "event.off"
 	},
 	Time: {
 		TIME_NOW: "nowTime",
