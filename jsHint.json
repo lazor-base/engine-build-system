@@ -1,0 +1,21 @@
+{
+	"camelcase": false,
+	"curly": true,
+	"eqeqeq": true,
+	"latedef": true,
+	"newcap": false,
+	"noempty": true,
+	"undef": true,
+	"unused": true,
+	"strict": true,
+	"debug": true,
+	"smarttabs": true,
+	"browser": true,
+	"node": true,
+	"devel": true,
+	"worker": true,
+	"globals": {
+		"PIXI":false,
+		"Module":false
+	}
+}
