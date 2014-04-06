@@ -183,6 +183,9 @@ walk(rootDir, function(err, files) {
 					console.log("Wrote temporary file to " + rootDir + "build/temp/client/" + fileName);
 					uglifyCode("client", path.basename(fileName, extensionName));
 				} else {
+					if (string.match(copyOriginalFileRegex) !== null) {
+						string = string.replace(copyOriginalFileRegex, "");
+					}
 					fs.writeFileSync(rootDir + "build/client/" + fileName, string);
 					console.log("Wrote temporary file to " + rootDir + "build/client/" + fileName);
 				}
