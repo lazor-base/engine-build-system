@@ -179,14 +179,14 @@ walk(rootDir, function(err, files) {
 					}
 				}
 				if (extensionName === ".js") {
-					fs.writeFileSync(rootDir + "build/temp/client/" + fileName, string);
+					fs.writeFileSync(rootDir + "build/temp/client/" + fileName, string.trim());
 					console.log("Wrote temporary file to " + rootDir + "build/temp/client/" + fileName);
 					uglifyCode("client", path.basename(fileName, extensionName));
 				} else {
 					if (string.match(copyOriginalFileRegex) !== null) {
 						string = string.replace(copyOriginalFileRegex, "");
 					}
-					fs.writeFileSync(rootDir + "build/client/" + fileName, string);
+					fs.writeFileSync(rootDir + "build/client/" + fileName, string.trim());
 					console.log("Wrote temporary file to " + rootDir + "build/client/" + fileName);
 				}
 			} else if (string.match(nameRegex) !== null) {
