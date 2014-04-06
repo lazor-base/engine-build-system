@@ -338,7 +338,7 @@ walk(rootDir, function(err, files) {
 	basicHTMLPage = basicHTMLPage.replace(new RegExp("<% HTML %>", "g"), htmlContent);
 	fs.writeFileSync(rootDir + "build/temp/index.html", basicHTMLPage);
 	var htmlPage = fs.readFileSync(rootDir + "build/temp/index.html", "utf8");
-	var invalidScripts = ["WebWorker.js", "package.json", "index.html"];
+	var invalidScripts = ["WebWorker.js", "package.json", "index.html", ".json"];
 	for (var j = 0; j < invalidScripts.length; j++) {
 		if (builtFiles.indexOf(invalidScripts[j]) > -1) {
 			builtFiles.splice(builtFiles.indexOf(invalidScripts[j]), 1);
