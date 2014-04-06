@@ -7,7 +7,7 @@ var path = require("path");
 var rootDir = path.resolve(process.argv[1], "../../") + "/";
 var UglifyJS = require("uglify-js");
 var fs = require("fs");
-var config = require(rootDir + "build_system/options.js");
+var config = require(rootDir + "buildOptions.js");
 // var Minify = require(rootDir + "build_system/minifier.js");
 
 function mergeObject(object, container) {

@@ -243,8 +243,9 @@ var constNames = {
 	LOADING: 0,
 	GAME: 1,
 	MAIN_MENU: 2,
-	GAME_INTERFACE:3,
-	PAUSE_MENU:4,
+	LOGIN:3,
+	GAME_INTERFACE:4,
+	PAUSE_MENU:5,
 
 	////////////////////////
 	// GAME STATE DEPTHS //
@@ -253,9 +254,19 @@ var constNames = {
 	SETUP_DEPTH: 0,
 	LOADING_DEPTH: 10,
 	MAIN_MENU_DEPTH: 1,
-	GAME_DEPTH: 2,
-	GAME_INTERFACE_DEPTH:3,
-	PAUSE_MENU_DEPTH: 4,
+	LOGIN_DEPTH: 2,
+	GAME_DEPTH: 3,
+	GAME_INTERFACE_DEPTH:4,
+	PAUSE_MENU_DEPTH: 5,
+
+	/////////////
+	// PLAYER //
+	/////////////
+
+	PLAYER_ID:0,
+	PLAYER_NAME:1,
+	PLAYER_KEYS:2,
+	PLAYER_OPTIONS:3,
 
 
 	//controller data
@@ -362,6 +373,7 @@ var remote = {
 	CONFIG_UNBIND: "Config.unbind",
 	CONFIG_BIND: "Config.bind",
 	CONFIG_LENGTH: "Config.length",
+	CONFIG_DEFAULTS: "Config.defaults",
 	CONTROL_PREVENT_DEFAULT: "Control.preventDefault",
 	CONTROL_GAMEPADS: "Control.gamepads",
 	CONTROL_ON: "Control.on",
@@ -387,6 +399,8 @@ var remote = {
 	DRAW_ON: "Draw.on",
 	DRAW_OFF: "Draw.off",
 	DRAW_RENDER: "Draw.render",
+	IO_READ:"IO.read",
+	IO_WRITE:"IO.write",
 	HELP_ITEM_REMOVE: "Help.itemRemove",
 	HELP_INDEX_REMOVE: "Help.indexRemove",
 	HELP_HAS: "Help.has",
@@ -415,8 +429,11 @@ var remote = {
 	CHUNK_ADD_STRUCTURE: "Chunk.addStruct",
 	CHUNK_MAP_MOUSE: "Chunk.mapMouse",
 	CHUNK_PLACE: "Chunk.place",
+	OPTIONS_DEFAULTS:"Options.defaults",
 	PHYSICS_TEST: "Physics.test",
 	PHYSICS_GET_VERTICES: "Physics.getVertices",
+	PLAYER_MAX:"Player.max",
+	PLAYER_EACH:"Player.each",
 	PLAYER_LENGTH: "Player.length",
 	PLAYER_REGISTER: "Player.register",
 	PLAYER_FIND: "Player.find",
@@ -481,6 +498,7 @@ var local = {
 		CONFIG_UNBIND: "unbind",
 		CONFIG_BIND: "bind",
 		CONFIG_LENGTH: "actions",
+		CONFIG_DEFAULTS: "defaultKeyMap",
 	},
 	GUI: {
 		GUI_TEMPLATE: "template",
@@ -510,17 +528,23 @@ var local = {
 		GAME_STATE:"gameState",
 		PAUSE_STATE:"pauseState",
 		GAME_INTERFACE_STATE:"gameInterfaceState",
+		GAME_LOGIN_STATE:"gameLoginState",
 		UI_BUTTON:"UIButton",
 		UI_LOADING_PAGE:"UILoadingPage",
 		UI_PAUSE_MENU:"UIPauseMenu",
 		UI_GAME_INTERFACE:"UIGameInterface",
-		UI_GAME_MAIN_MENU:"UIGameMainMenu"
+		UI_GAME_MAIN_MENU:"UIGameMainMenu",
+		UI_GAME_LOGIN:"UIGameLogin"
 	},
 	Help: {
 		HELP_ITEM_REMOVE: "itemRemove",
 		HELP_INDEX_REMOVE: "indexRemove",
 		HELP_HAS: "has",
 		HELP_SPLICE: "splice"
+	},
+	IO: {
+		IO_READ:"readFile",
+		IO_WRITE:"writeFile"
 	},
 	Light: {
 		LIGHT_SOURCE: "newLight",
@@ -544,6 +568,9 @@ var local = {
 		LOOP_REMOVE: "event.off",
 		LOOP_QUEUE: "queue"
 	},
+	Options: {
+		OPTIONS_DEFAULTS:"defaultOptions"
+	},
 	Chunk: {
 		CHUNK_MAKE: "makeChunk",
 		CHUNK_DRAW: "drawChunk",
@@ -559,6 +586,8 @@ var local = {
 		PHYSICS_GET_VERTICES: "getVertices"
 	},
 	Player: {
+		PLAYER_MAX:"setMaxPlayers",
+		PLAYER_EACH:"eachPlayer",
 		PLAYER_LENGTH: "length",
 		PLAYER_REGISTER: "register",
 		PLAYER_FIND: "find",
