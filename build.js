@@ -333,7 +333,6 @@ walk(rootDir, function(err, files) {
 			builtFiles.splice(index, 1);
 		}
 	}
-	console.log(builtFiles);
 	var basicHTMLPage = fs.readFileSync(rootDir + "build_system/index.html", "utf8");
 	htmlContent = htmlContent.join("\n").replace(new RegExp("\n", "g"), "\n\t\t\t");
 	basicHTMLPage = basicHTMLPage.replace(new RegExp("<% HTML %>", "g"), htmlContent);
@@ -350,7 +349,6 @@ walk(rootDir, function(err, files) {
 			}
 		}
 	}
-	console.log(builtFiles);
 	var engineIndex = builtFiles.indexOf("Engine.js");
 	builtFiles.move(engineIndex, builtFiles.length - 1);
 	var gameIndex = builtFiles.indexOf("Game.js");
